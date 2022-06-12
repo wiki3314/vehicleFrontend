@@ -1,12 +1,14 @@
 import axios from "axios";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { BaseURL } from "../../config/staging";
 
 const SignUp = (props) => {
   const [enterEmail, setEnterEmail] = useState("");
   const [enterName, setEnterName] = useState("");
-  // const [isSi, setIsAuth] = useState(false);
+
+  const navigate = useNavigate();
 
   const enterEmailHandle = (event) => {
     setEnterEmail(event.target.value);
@@ -24,7 +26,7 @@ const SignUp = (props) => {
       });
       console.log("response ", response.data);
       if (response.data.success) {
-        props.onSignUpSet(true);
+        navigate("/");
       }
     } catch (error) {
       console.log("error ", error);
@@ -66,11 +68,11 @@ const SignUp = (props) => {
             className="btn btn-primary"
             style={{ marginTop: "20px" }}
           >
-            Submit
+            Sign Up
           </button>
         </div>
         <p className="forgot-password text-right" style={{ marginTop: "20px" }}>
-          already user? <a href="SignIn">Sign In</a>
+          already user? <a href="/">Sign In</a>
         </p>
       </form>
     </div>

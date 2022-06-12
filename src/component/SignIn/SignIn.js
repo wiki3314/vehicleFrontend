@@ -6,13 +6,9 @@ import { BaseURL } from "../../config/staging";
 const SignIn = (props) => {
   const [enterEmail, setEnterEmail] = useState("");
   const [enterPassword, setEnterPassword] = useState("");
-  // const [isSi, setIsAuth] = useState(false);
+
   const navigate = useNavigate();
 
-  const navigateToHome = () => {
-    // 👇️ navigate to /contacts
-    navigate("/Home");
-  };
   const enterEmailHandle = (event) => {
     setEnterEmail(event.target.value);
   };
@@ -37,7 +33,8 @@ const SignIn = (props) => {
       console.log("response ", response.data);
       if (response.data.success) {
         props.onLoginSet(true);
-        props.onSetToken(response.data.accessToken);
+        localStorage.setItem("token", response.data.accessToken);
+        navigate("/Home");
       }
     } catch (error) {
       console.log("error ", error);
@@ -73,20 +70,16 @@ const SignIn = (props) => {
             type="submit"
             className="btn btn-primary"
             style={{ marginTop: "20px" }}
-            onClick={() => {
-              props.onLoginSet(true);
-              navigateToHome();
-            }}
+            // onClick={() => {
+            //   props.onLoginSet(true);
+            // }}
           >
             Sign In
           </button>
         </div>
         <p className="forgot-password text-right" style={{ marginTop: "20px" }}>
-          Don't have account? <a href="SignUp">Sign Up?</a>
+          Don't have account? <a href="/SignUp">Sign Up?</a>
         </p>
-        {/* <link to="/signup" className="btn btn-primary">
-          Sign up
-        </link> */}
       </form>
     </div>
   );
